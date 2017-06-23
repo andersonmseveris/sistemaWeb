@@ -1,0 +1,32 @@
+
+# BEGIN WordPress
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+
+
+# END WordPress
+
+Options +FollowSymlinks
+RewriteEngine on
+RewriteBase /
+
+# prevent looping
+RewriteCond %{HTTP_HOST} !^m.mysite.com$
+
+# if the browser accepts these mime-types, it's definitely mobile, or pretending to be
+RewriteCond %{HTTP_ACCEPT} "text/vnd.wap.wml|application/vnd.wap.xhtml+xml" [NC,OR]
+
+# a bunch of user agent tests
+RewriteCond %{HTTP_USER_AGENT} "sony|symbian|nokia|samsung|mobile|windows ce|epoc|opera" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "mini|nitro|j2me|midp-|cldc-|netfront|mot|up.browser|up.link|audiovox"[NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "blackberry|ericsson,|panasonic|philips|sanyo|sharp|sie-"[NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "portalmmm|blazer|avantgo|danger|palm|series60|palmsource|pocketpc"[NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "smartphone|rover|ipaq|au-mic,|alcatel|ericy|vodafone/|wap1.|wap2.|iPhone|android"[NC]
+
+# rewrite rules here
+RewriteRule ^(.+)$ http://m.mysite.com/$1 [R=302,NC]
